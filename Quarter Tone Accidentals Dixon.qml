@@ -100,7 +100,7 @@ MuseScore {
 											
 											found = true;
 											break;
-										} else if (accidental.x == note.pitch && accidental.y != note.accidentalType) {
+										} else if (accidental.y != note.accidentalType) {
 											a.splice(j,1);
 											a.push(Qt.vector2d(note.pitch,note.accidentalType));
 											adjustTuning(note,accidental.y);

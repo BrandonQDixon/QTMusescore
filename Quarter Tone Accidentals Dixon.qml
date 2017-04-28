@@ -120,9 +120,7 @@ MuseScore {
 									for (var j=0; j<a.length; j++) {
 										var accidental = a[j];
 										
-										//try this here
-										if (accidental.x == note.pitch && (accidental.y != Accidental.NONE)) {
-										//if (accidental.x == note.pitch) {
+										if (accidental.x == note.pitch) {
 											adjustTuning(note);
 											
 											found = true;
@@ -149,7 +147,7 @@ MuseScore {
 		Qt.quit();
 	}
 	
-	function adjustTuning(note,ac) {
+	function adjustTuning(note) {
 		if (note.accidentalType == Accidental.MIRRORED_FLAT2) {
 			note.tuning = -150;
 		} else if (note.accidentalType == Accidental.MIRRORED_FLAT) {

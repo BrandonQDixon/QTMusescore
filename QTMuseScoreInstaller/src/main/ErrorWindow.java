@@ -33,7 +33,7 @@ public class ErrorWindow extends JFrame {
 	private static final String DOWNLOAD_BUTTON_STRING = "Download MuseScore";
 	private static final String MS_URL = "www.musescore.org";
 	
-	private static final String ERROR_STRING_TWO = "Once you have installed MuseScore, hit the button below to try again.";
+	private static final String ERROR_STRING_TWO = "Once you have installed MuseScore, open the program, then hit the button below to try again. ";
 	
 	private static final String RETRY_STRING = "Retry";
 	private static final String MANUAL_STRING = "<html>If you have tried the options above, and this program still does not detect MuseScore, click the button below to install the plugin manually.<br>It will take you to a website with instructions on how to install the plugin.</html>";

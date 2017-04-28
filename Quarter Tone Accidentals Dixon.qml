@@ -87,7 +87,7 @@ MuseScore {
 							for (var i=0; i<notes.length; i++) {
 								var note = notes[i];
 								
-								//if the note has an accidentals
+								//if the note has an accidental
 								if (note.accidentalType != Accidental.NONE) {
 									var noteFound = false;
 									
@@ -100,8 +100,7 @@ MuseScore {
 											
 											found = true;
 											break;
-										} else if (accidental.x == accidental.y != note.accidentalType) {
-											//if a note has an accidental found already, remove the accidental and repalce iterate
+										} else if (accidental.x == note.pitch && accidental.y != note.accidentalType) {
 											a.splice(j,1);
 											a.push(Qt.vector2d(note.pitch,note.accidentalType));
 											adjustTuning(note,accidental.y);
@@ -115,7 +114,7 @@ MuseScore {
 										a.push(Qt.vector2d(note.pitch,note.accidentalType));
 										adjustTuning(note);
 									}
-								} else {
+								} else { //if it doesn't have an accidental, see if it has a carryover
 									var found = false;
 									for (var j=0; j<a.length; j++) {
 										var accidental = a[j];

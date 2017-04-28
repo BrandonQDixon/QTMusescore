@@ -25,8 +25,8 @@ public class ScriptWindow extends JFrame {
 	
 	//declare window strings
 	private static final String SUCCESS_STRING = "The plugin has successfully been installed.  If MuseScore is currently running, you will need to restart it to use the plugin.";
-	private static final String MS_EXISTS_STRING = "This program has detected that MuseScore is installed on your system.";
-	private static final String ATTEMPT_STRING = "Click on the button below to install the plugin to MuseScore.  This will require an internet connection.";
+	private static final String MS_EXISTS_STRING = "<html>This program has detected that MuseScore is installed on your system.<br> -- Note: if you previously installed, then uninstalled MuseScore, this message will appear even if MuseScore is still uninstalled.</html>";
+	private static final String ATTEMPT_STRING = "Click on the button below to install the plugin to MuseScore.  This will require internet connection.";
 	private static final String INSTALL_STRING = "Install the Plugin";
 	
 	//declare actual variables

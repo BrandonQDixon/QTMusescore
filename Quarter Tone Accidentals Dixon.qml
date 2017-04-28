@@ -147,7 +147,7 @@ MuseScore {
 		Qt.quit();
 	}
 	
-	function adjustTuning(note) {
+	function adjustTuning(note,ac) {
 		if (note.accidentalType == Accidental.MIRRORED_FLAT2) {
 			note.tuning = -150;
 		} else if (note.accidentalType == Accidental.MIRRORED_FLAT) {
@@ -156,6 +156,6 @@ MuseScore {
 			note.tuning = 50;
 		} else if (note.accidentalType == Accidental.SHARP_SLASH4) {
 			note.tuning = 150;
-		} 
+		}
 	}
 }

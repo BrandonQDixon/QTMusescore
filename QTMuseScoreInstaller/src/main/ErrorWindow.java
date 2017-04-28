@@ -1,4 +1,5 @@
 package main;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -57,6 +58,8 @@ public class ErrorWindow extends JFrame {
 		this.setIconImage(Main.ICON_IMAGE);
 		this.setTitle(Main.WINDOW_TITLE);
 		this.setResizable(false);
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
 		
 		mainPanel = new JPanel(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();

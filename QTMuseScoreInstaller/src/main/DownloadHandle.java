@@ -1,3 +1,4 @@
+package main;
 import java.awt.Desktop;
 import java.io.BufferedOutputStream;
 import java.io.File;

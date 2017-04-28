@@ -1,3 +1,4 @@
+package main;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
@@ -22,13 +23,14 @@ public class Main {
 	public static final String FILE_NAME = "Quarter Tone Accidentals Dixon.qml";
 	
 	public static final String WINDOW_TITLE = "Quarter Tone Saxophone";
-	public static final Image ICON_IMAGE = new ImageIcon(Main.class.getResource("/icon.png")).getImage();
+	public static Image ICON_IMAGE;
 	
 	
 	private static JFrame current = null;
 	private static File dir = null;
 	
 	public static void main(String[] args) {
+		ICON_IMAGE = new ImageIcon(Main.class.getResource("/icon.png")).getImage();
 		checkStatus();
 	}
 	

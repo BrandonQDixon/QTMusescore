@@ -120,7 +120,9 @@ MuseScore {
 									for (var j=0; j<a.length; j++) {
 										var accidental = a[j];
 										
-										if (accidental.x == note.pitch) {
+										//try this here
+										if (accidental.x == note.pitch && accidental.y != Accidental.NONE)
+										//if (accidental.x == note.pitch) {
 											adjustTuning(note);
 											
 											found = true;

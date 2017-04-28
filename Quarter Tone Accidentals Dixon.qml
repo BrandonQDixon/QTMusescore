@@ -156,7 +156,7 @@ MuseScore {
 			note.tuning = 50;
 		} else if (note.accidentalType == Accidental.SHARP_SLASH4) {
 			note.tuning = 150;
-		} else if (note.accidentalType == Accidental.NONE) {
+		} else if (note.accidentalType == Accidental.NATURAL) {
 			note.tuning = 0;
 		}
 	}

@@ -1,4 +1,4 @@
-# QTMusescore
+QTMusescore
 =================
 This is a plugin for MuseScore, Version 2.
 The latest release of this plugin is from 4/27/17.

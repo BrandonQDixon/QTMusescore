@@ -62,6 +62,8 @@ MuseScore {
 				myCursor.voice = cVoice; //set the selections voice to the current one
 				myCursor.staffIdx = cStaff;
 				
+				console.log("Current Voice: "+cVoice)
+				
 				if (fullScore) {
 					myCursor.rewind(0);
 				}
@@ -147,17 +149,13 @@ MuseScore {
 	
 	function adjustTuning(note) {
 		if (note.accidentalType == Accidental.MIRRORED_FLAT2) {
-			note.tuning = 0;
-			note.tuning -= 150;
+			note.tuning = -150;
 		} else if (note.accidentalType == Accidental.MIRRORED_FLAT) {
-			note.tuning = 0;
-			note.tuning -= 50;
+			note.tuning = -50;
 		} else if (note.accidentalType == Accidental.SHARP_SLASH) {
-			note.tuning = 0;
-			note.tuning += 50;
+			note.tuning = 50;
 		} else if (note.accidentalType == Accidental.SHARP_SLASH4) {
-			note.tuning = 0;
-			note.tuning += 150;
+			note.tuning = 150;
 		}
 	}
 }

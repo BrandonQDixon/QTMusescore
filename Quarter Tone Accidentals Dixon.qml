@@ -96,14 +96,14 @@ MuseScore {
 										
 										if (accidental.x == note.pitch && accidental.y == note.accidentalType) {
 											//this means the note has been found in the measure
-											adjustTuning(note,accidental.y);
+											adjustTuning(note);
 											
 											found = true;
 											break;
-										} else if (accidental.y != note.accidentalType) {
+										} else if (accidental.x == note.pitch && accidental.y != note.accidentalType) {
 											a.splice(j,1);
 											a.push(Qt.vector2d(note.pitch,note.accidentalType));
-											adjustTuning(note,accidental.y);
+											adjustTuning(note);
 											
 											found = true;
 											break;
@@ -120,7 +120,7 @@ MuseScore {
 										var accidental = a[j];
 										
 										if (accidental.x == note.pitch) {
-											adjustTuning(note,accidental.y);
+											adjustTuning(note);
 											
 											found = true;
 											break;
@@ -146,15 +146,17 @@ MuseScore {
 		Qt.quit();
 	}
 	
-	function adjustTuning(note,ac) {
-		if (ac == Accidental.MIRRORED_FLAT2) {
+	function adjustTuning(note) {
+		if (note.accidentalType == Accidental.MIRRORED_FLAT2) {
 			note.tuning = -150;
-		} else if (ac == Accidental.MIRRORED_FLAT) {
+		} else if (note.accidentalType == Accidental.MIRRORED_FLAT) {
 			note.tuning = -50;
-		} else if (ac == Accidental.SHARP_SLASH) {
+		} else if (note.accidentalType == Accidental.SHARP_SLASH) {
 			note.tuning = 50;
-		} else if (ac == Accidental.SHARP_SLASH4) {
+		} else if (note.accidentalType == Accidental.SHARP_SLASH4) {
 			note.tuning = 150;
+		} else if (note.accidentalType == Accidental.NATURAL) {
+			note.tuning = 0;
 		}
 	}
 }

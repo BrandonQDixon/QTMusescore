@@ -7,10 +7,12 @@ public class Main {
 	private static final String REPO_URL = "https://github.com/BrandonQDixon/QTMusescore/archive/master.zip";
 	private static final String DOWN_DEST = "temp.zip";
 	
+	public static final String HEADER = "Quarter Tone Accidental Plugin for MuseScore";
+	
 	private static JFrame current = null;
 	
 	public static void main(String[] args) {
-			
+		checkStatus();
 	}
 	
 	public static void checkStatus() {

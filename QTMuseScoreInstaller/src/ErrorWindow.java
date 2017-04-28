@@ -1,3 +1,5 @@
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -9,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 /**
  * This window will appear if the program does not think MuseScore is installed.
@@ -19,15 +22,19 @@ import javax.swing.JPanel;
 public class ErrorWindow extends JFrame {
 
 	//strings for the program display
-	private static final String ERROR_STRING_ONE = "This program did not detect an installation of MuseScore on your system.\n\n"
-			+ "If you have not yet installed MuseScore, you may do so by clicking the button below:";
+	
+	private static final String ERROR_STRING_ONE = "<html><div style='text-align: center;'>This program did not detect an installation of MuseScore on your system.<br>"
+			+ "If you have not yet installed MuseScore, you may do so by clicking the button below.</html>";
 	
 	private static final String DOWNLOAD_BUTTON_STRING = "Download MuseScore";
 	private static final String MS_URL = "www.musescore.org";
 	
 	private static final String ERROR_STRING_TWO = "Once you have installed MuseScore, hit the button below to try again.";
 	
+	private static final String RETRY_STRING = "Retry";
+	
 	//actual variables
+	private JLabel header;
 	private JLabel errorOne;
 	private JButton downloadButton;
 	private JLabel errorTwo;
@@ -42,8 +49,20 @@ public class ErrorWindow extends JFrame {
 		mainPanel = new JPanel(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		
-		errorOne = new JLabel(ERROR_STRING_ONE);
+		c.gridx = 0;
+		c.gridy = 0;
+		
+		header = new JLabel(Main.HEADER,SwingConstants.CENTER);
+		header.setFont(new Font(header.getFont().getName(),Font.BOLD,28));
+		mainPanel.add(header,c);
+		
+		c.gridy++;
+		errorOne = new JLabel(ERROR_STRING_ONE,SwingConstants.CENTER);
+		mainPanel.add(errorOne, c);
+		
+		c.gridy++;
 		downloadButton = new JButton(DOWNLOAD_BUTTON_STRING);
+		mainPanel.add(downloadButton, c);
 		
 		downloadButton.addActionListener(new ActionListener() {
 
@@ -60,8 +79,13 @@ public class ErrorWindow extends JFrame {
 			
 		});
 		
-		errorTwo = new JLabel(ERROR_STRING_TWO);
+		c.gridy++;
+		errorTwo = new JLabel(ERROR_STRING_TWO,SwingConstants.CENTER);
+		mainPanel.add(errorTwo, c);
 		
+		c.gridy++;
+		retryButton = new JButton(RETRY_STRING);
+		mainPanel.add(retryButton,c);
 		retryButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -70,6 +94,10 @@ public class ErrorWindow extends JFrame {
 			}	
 			
 		});
+		
+		this.add(mainPanel);
+		this.pack();
+		this.setVisible(true);
 		
 		
 	}

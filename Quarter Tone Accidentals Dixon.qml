@@ -121,7 +121,7 @@ MuseScore {
 										var accidental = a[j];
 										
 										//try this here
-										if (accidental.x == note.pitch && accidental.y != Accidental.NONE)
+										if (accidental.x == note.pitch && (accidental.y != Accidental.NONE)) {
 										//if (accidental.x == note.pitch) {
 											adjustTuning(note);
 											

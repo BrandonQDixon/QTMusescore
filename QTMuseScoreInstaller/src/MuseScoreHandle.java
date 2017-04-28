@@ -16,13 +16,14 @@ public class MuseScoreHandle {
 	 * @throws MuseScoreDoesNotExistException
 	 */
 	public static File doesMuseScoreExist() throws MuseScoreDoesNotExistException {
-		String dirSlash = System.getProperty("file.separator");
 		
-		String msDir = FileSystemView.getFileSystemView().getDefaultDirectory().getPath() + dirSlash + "MuseScore 2"+dirSlash+"Plugins"+dirSlash;
+		String msDir = FileSystemView.getFileSystemView().getDefaultDirectory().getPath() + File.separator + "MuseScore2"+File.separator+"Plugins";
 		File msDirFile = new File(msDir);
 		
 		if (msDirFile.exists()) {
 			return msDirFile;
+		} else {
+			msDir = FileSystemView.getFileSystemView().getDefaultDirectory().getPath()+File.separator+"MuseScore 2"+File.separator+"Plugins";
 		}
 		
 		throw new MuseScoreDoesNotExistException();

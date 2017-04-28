@@ -25,7 +25,8 @@ MuseScore {
 		var endStaff;
 		var endTick;
 		var measure;
-		var a = []; //accidentals
+		var prevA = []
+		//var prevAInfo = []; //accidentals ind 0 is pitch, 1 is the current accidental: 0 is sesquiflat, 1 is semiflat,2 is natural, 3 is semisharp, 4 is sesquisharp
 		
 		//first, get the current score
 		var cScore = curScore;
@@ -74,8 +75,8 @@ MuseScore {
 						if (myCursor.measure != measure) {
 							measure = myCursor.measure;
 
-							for (var i=0; i<a.length; i++) {
-								a.pop(); //we don't need the accidental information from the previous measure
+							for (var i=0; i<prevA.length; i++) {
+								prevA.pop(); //we don't need the accidental information from the previous measure
 							}
 						
 						}
@@ -92,35 +93,30 @@ MuseScore {
 									var noteFound = false;
 									
 									for (var j=0; j<a.length; j++) {
-										var accidental = a[j];
+										var accidentalInfo = a[j];
 										
-										if (accidental.x == note.pitch && accidental.y == note.accidentalType) {
-											//this means the note has been found in the measure
-											adjustTuning(note);
-											
-											found = true;
-											break;
-										} else if (accidental.x == note.pitch && accidental.y != note.accidentalType) {
-											a.splice(j,1);
-											a.push(Qt.vector2d(note.pitch,note.accidentalType));
-											adjustTuning(note);
-											
-											found = true;
-											break;
-										}
+											//if we are dealing with the same note, check to see if accidental exists
+											if (accidentalInfo[0] == note.pitch) {
+												noteAdjust(note,accidentalInfo);
+												isFound = true;
+											}
 									}
 									
-									if (!found) {
-										a.push(Qt.vector2d(note.pitch,note.accidentalType));
-										adjustTuning(note);
+									if (!found) { //if this is the first instance of the note
+										var accidentalInfo = [];
+										accidentalInfo[0] = note.pitch;
+										accidentalInfo[1] = note.accidentalType;
+										prevA.add(accidentalInfo);
+										isFound = true;
 									}
 								} else { //if it doesn't have an accidental, see if it has a carryover
 									var found = false;
+									
 									for (var j=0; j<a.length; j++) {
-										var accidental = a[j];
+										var accidentalInfo = prevA[j];
 										
-										if (accidental.x == note.pitch) {
-											adjustTuning(note);
+										if (accidentalInfo[0] == note.pitch) {
+											noteAdjust(note,accidentalInfo);
 											
 											found = true;
 											break;
@@ -135,8 +131,9 @@ MuseScore {
 							}
 						
 						}
+					}
 						
-						myCursor.next();
+					myCursor.next();
 				}
 				
 			}
@@ -146,17 +143,17 @@ MuseScore {
 		Qt.quit();
 	}
 	
-	function adjustTuning(note) {
-		if (note.accidentalType == Accidental.MIRRORED_FLAT2) {
+	function adjustTuning(note,accidentalInfo) {
+		if (accidentalInfo[1] == 0) {
 			note.tuning = -150;
-		} else if (note.accidentalType == Accidental.MIRRORED_FLAT) {
+		} else if (accidentalInfo[1] == 1) {
 			note.tuning = -50;
-		} else if (note.accidentalType == Accidental.SHARP_SLASH) {
-			note.tuning = 50;
-		} else if (note.accidentalType == Accidental.SHARP_SLASH4) {
-			note.tuning = 150;
-		} else if (note.accidentalType == Accidental.NATURAL) {
+		} else if (accidentalInfo[1] == 2) {
 			note.tuning = 0;
+		} else if (accidentalInfo[1] == 3) {
+			note.tuning = 50;
+		} else if (accidentalInfo[1] == 4) {
+			note.tuning = 150;
 		}
 	}
 }

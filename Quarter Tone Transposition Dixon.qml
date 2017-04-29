@@ -84,7 +84,12 @@ MuseScore {
 	
 	
 	function transposeSelected() {
-		//vars used to scan through notes
+		//change the following when up/down is implemented (for negative value)
+		var noteOffset = intervalBoxList.currentIndex/4;
+		var quarterOffset = intervalBoxList.currentIndex%4;
+	
+	
+		//vars used to scan through notess
 		var fullScore;
 		var startStaff;
 		var endStaff;
@@ -95,7 +100,7 @@ MuseScore {
 		var cScore = curScore;
 		var myCursor = cScore.newCursor();
 		
-		//rewind to the begininng of hte selection
+		//rewind to the begininng of the selection
 		myCursor.rewind(1);
 		
 		if (!myCursor.segment) { //if the user has made no selection
@@ -134,8 +139,50 @@ MuseScore {
 			}
 			
 		}
+		
 	}
 	
+	function adjustNote(note,noteOffset,quarterOffset) {
+		note.pitch += noteOffset*2; //because noteOffset is measured in whole steps;
+		if (note.accidentalType == Accidental.NONE || note.accidentalType == Accidental.NATURAL) {
+			note.tuning = quarterOffset * 50; //this is dealing in cents now
+		} else if (note.accidentalType == Accidental.MIRRORED_FLAT2) { //sesquiflat
+			handleSesquiflatAccidental(note,noteOffset,quarterOffset);
+		} else if (note.accidentalType == Accidental.MIRRORED_FLAT) { //semiflat
+			handleSemiflatAccidental(note,noteOffset,quarterOffset);
+		}
+		
+		//at the end, assign accidental based on tuning, and adjust accidentals if needed (so there is no sharp+semisharp)
 	
+	}
+	
+	function handleSesquiflatAccidental(note,noteOffset,quarterOffset) {
+		if (quarterOffset == -3) { //if we have equivalent of sesquiflat + sesquiflat, really is flat of next note down
+			note.pitch -= 3;
+			note.tuning = 0;
+		} else if (quarterOffset == -2) { //sesquiflat + flat = semiflat of next whole note down
+			note.pitch -= 2;
+			note.tuning = -50;
+		} else if (quarterOffset == -1) { //sesquiflat + semiflat = natural of next note down
+			note.pitch -= 2;
+			note.tuning = 0;
+		} else if (quarterOffset == 1) { //sesquiflat + semisharp = flat of this note
+			note.pitch -= 1;
+			note.tuning = 0;
+		} else if (quarterOffset == 2) { //sesquiflat + sharp = semiflat of this note
+			note.tuning = -50;
+		} else if (quarterOffset == 3) { //sesquiflat + sesquisharp = this note
+			note.tuning = 0;
+		}
+	}
+	
+	function handleSemiflatAccidental(note,noteOffset,quarterOffset) {
+		if (quarterOffset == -3) { //semiflat + sesquiflat = natural next whole note down
+			note.pitch -= 2;
+			note.tuning = 0;
+		} else if (quarterOffset == -2) {	//semiflat + flat = sesquiflat
+			note.pitch -=
+		}
+	}
 	
 }

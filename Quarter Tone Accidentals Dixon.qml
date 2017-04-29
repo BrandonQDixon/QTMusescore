@@ -13,7 +13,7 @@ MuseScore {
 
 	version: "2.0"
 	description: qsTr("This plugin adjusts the pitches of all of the standard quarter tone accidentals")
-	menuPath: "Plugins.Quarter Tone Accidentals." +qsTr("Apply tuning")
+	menuPath: "Plugins.Quarter Tone Plugins." +qsTr("Apply Tuning")
 	
 	//when the plugin is first run
 	onRun: {

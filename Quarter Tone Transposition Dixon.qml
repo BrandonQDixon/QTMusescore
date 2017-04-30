@@ -100,10 +100,11 @@ MuseScore {
 	
 	
 	function transposeSelected() {
+		
 	
 		//change the following when up/down is implemented (for negative value)
-		var noteOffset = (intervalBoxList.currentIndex+1)/4;
-		var quarterOffset = (intervalBoxList.currentIndex+1)%4;
+		var noteOffset = Math.floor((intervalBox.currentIndex+1)/4);
+		var quarterOffset = (intervalBox.currentIndex+1)%4;
 		
 		if (upDownList.currentIndex == 1) {
 			noteOffset *= -1;
@@ -123,6 +124,7 @@ MuseScore {
 		//first, get the current score
 		var cScore = curScore;
 		var myCursor = cScore.newCursor();
+		cScore.startCmd();
 		
 		console.log("Got score");
 		
@@ -170,16 +172,6 @@ MuseScore {
 				while (myCursor.segment && (fullScore || myCursor.tick < endTick)) {
 					console.log("Moving through");
 					
-					myCursor.rewind(1); //beginning of selection
-					myCursor.voice = cVoice; //set the selections voice to the current one
-					myCursor.staffIdx = cStaff;
-					
-					console.log("Current Voice: "+cVoice)
-					
-					if (fullScore) {
-						myCursor.rewind(0);
-					}
-					
 					//if the current element is a note (or chord, technically)
 					if (myCursor.element && myCursor.element.type == Element.CHORD) {
 						console.log("Got some notes");
@@ -199,8 +191,9 @@ MuseScore {
 			}
 			
 		}
+		cScore.endCmd();
 		console.log("Done");
-		Qt.exit(1);
+		Qt.quit();
 		
 	}
 	
@@ -323,6 +316,8 @@ MuseScore {
 			} else if (note.tuning == 150) {
 				note.pitch += 1;
 				note.tuning = 50;
+			} else {
+				note.accidentalType = Accidental.SHARP;
 			}
 		}
 		

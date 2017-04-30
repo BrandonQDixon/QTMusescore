@@ -32,6 +32,8 @@ MuseScore {
 		var cScore = curScore;
 		var myCursor = cScore.newCursor();
 		
+		cScore.startCmd();
+		
 		//rewind to the beginning of the selection
 		myCursor.rewind(1);
 		
@@ -150,6 +152,7 @@ MuseScore {
 				
 			}
 
+		cScore.endCmd();
 		Qt.quit();
 	}
 	

@@ -193,6 +193,7 @@ MuseScore {
 		}
 		cScore.endCmd();
 		console.log("Done");
+		cScore.doLayout();
 		Qt.quit();
 		
 	}

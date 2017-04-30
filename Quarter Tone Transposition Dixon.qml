@@ -333,6 +333,55 @@ MuseScore {
 		} else if (note.tuning == 150) {
 			note.accidentalType = Accidental.SHARP_SLASH4;
 		}
+		
+		var tPitch = note.pitch%12;
+		if (tPitch == 0) {	//C
+			note.tpc1 = 14;
+		} else if (tPitch == 1) {	//C#
+			if (note.accidentalType == Accidental.SHARP) {
+				note.tpc1 = 21;
+			} else {
+				note.tpc1 = 9;
+			}
+		} else if (tPitch == 2) {	//D
+			note.tpc1 = 16;
+		} else if (tPitch == 3) {	//D#
+			if (note.accidentalType == Accidental.SHARP) {
+				note.tpc1 = 23;
+			} else {
+				note.tpc1 = 11;
+			}
+		} else if (tPitch == 4)	{	//E
+			note.tpc1 = 18;
+		} else if (tPitch == 5) {	//F
+			note.tpc1 = 13;
+		} else if (tPitch == 6) {	//F#
+			if (note.accidentalType == Accidental.SHARP) {
+				note.tpc1 = 20;
+			} else {
+				note.tpc1 = 8;
+			}
+		} else if (tPitch == 7) {	//G
+			note.tpc1 = 15;
+		} else if (tPitch == 8) {	//G#
+			if (note.accidentalType == Accidental.SHARP) {
+				note.tpc1 = 22;
+			} else {
+				note.tpc1 = 10;
+			}
+		} else if (tPitch == 9) {	//A
+			note.tpc1 = 17;
+		} else if (tPitch == 10) {	//A#
+			if (note.accidentalType == Accidental.SHARP) {
+				note.tpc1 = 24;
+			} else {
+				note.tpc1 = 12;
+			}
+		} else if (tPitch == 11) {	//B
+			note.tpc1 = 19;
+		} else {
+			console.log("Strange TPC error");
+		}
 	}
 	
 }

@@ -203,7 +203,12 @@ MuseScore {
 	
 		//adjust the note
 		note.pitch += noteOffset*2; //because noteOffset is measured in whole steps;
+		
+		
 		note.tuning = 0; //temporary measure, may or may not be needed
+		
+		
+		
 		if (note.accidentalType == Accidental.NONE || note.accidentalType == Accidental.NATURAL) {
 			note.tuning = quarterOffset * 50; //this is dealing in cents now
 		} else if (note.accidentalType == Accidental.MIRRORED_FLAT2) { //sesquiflat
@@ -334,54 +339,8 @@ MuseScore {
 			note.accidentalType = Accidental.SHARP_SLASH4;
 		}
 		
-		var tPitch = note.pitch%12;
-		if (tPitch == 0) {	//C
-			note.tpc1 = 14;
-		} else if (tPitch == 1) {	//C#
-			if (note.accidentalType == Accidental.SHARP) {
-				note.tpc1 = 21;
-			} else {
-				note.tpc1 = 9;
-			}
-		} else if (tPitch == 2) {	//D
-			note.tpc1 = 16;
-		} else if (tPitch == 3) {	//D#
-			if (note.accidentalType == Accidental.SHARP) {
-				note.tpc1 = 23;
-			} else {
-				note.tpc1 = 11;
-			}
-		} else if (tPitch == 4)	{	//E
-			note.tpc1 = 18;
-		} else if (tPitch == 5) {	//F
-			note.tpc1 = 13;
-		} else if (tPitch == 6) {	//F#
-			if (note.accidentalType == Accidental.SHARP) {
-				note.tpc1 = 20;
-			} else {
-				note.tpc1 = 8;
-			}
-		} else if (tPitch == 7) {	//G
-			note.tpc1 = 15;
-		} else if (tPitch == 8) {	//G#
-			if (note.accidentalType == Accidental.SHARP) {
-				note.tpc1 = 22;
-			} else {
-				note.tpc1 = 10;
-			}
-		} else if (tPitch == 9) {	//A
-			note.tpc1 = 17;
-		} else if (tPitch == 10) {	//A#
-			if (note.accidentalType == Accidental.SHARP) {
-				note.tpc1 = 24;
-			} else {
-				note.tpc1 = 12;
-			}
-		} else if (tPitch == 11) {	//B
-			note.tpc1 = 19;
-		} else {
-			console.log("Strange TPC error");
-		}
+		var pitch2tpc=[14,21,16,23,18,13,20,15,22,17,24,19];
+		note.tpc1 = pitch2tpc[note.pitch%12];
 	}
 	
 }

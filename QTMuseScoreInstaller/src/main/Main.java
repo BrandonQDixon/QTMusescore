@@ -52,9 +52,9 @@ public class Main {
 		}
 	}
 	
-	public static void downloadAndPlace() {
+	public static void downloadAndPlace(String filePath) {
 		try {
-			DownloadHandle.downloadRepo(REPO_URL,dir.getAbsolutePath(),FILE_NAME);
+			DownloadHandle.downloadRepo(REPO_URL,(filePath.equals("")?dir.getAbsolutePath():filePath),FILE_NAME);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

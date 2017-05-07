@@ -77,7 +77,7 @@ public class ScriptWindow extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				Main.downloadAndPlace();
+				Main.downloadAndPlace("");
 				JOptionPane.showMessageDialog(null,SUCCESS_STRING);
 				System.exit(0);
 			}

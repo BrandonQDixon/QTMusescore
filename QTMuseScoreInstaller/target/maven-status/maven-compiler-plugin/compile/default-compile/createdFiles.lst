@@ -1,10 +1,10 @@
 main\MuseScoreDoesNotExistException.class
-main\ErrorWindow$1.class
 main\DownloadHandle.class
 main\ErrorWindow$3.class
-main\MuseScoreHandle.class
-main\ErrorWindow.class
 main\Main.class
 main\ErrorWindow$2.class
 main\ScriptWindow.class
 main\ScriptWindow$1.class
+main\ErrorWindow$1.class
+main\MuseScoreHandle.class
+main\ErrorWindow.class

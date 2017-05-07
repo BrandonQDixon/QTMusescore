@@ -36,8 +36,12 @@ public class ErrorWindow extends JFrame {
 	
 	private static final String ERROR_STRING_TWO = "Once you have installed MuseScore, open the program, then hit the button below to try again. ";
 	
+	
+	private static final String MANUAL_LOCATE = "If you would like to locate the Plugins folder manually, click the button below.";
+	private static final String LOCATE_BUTTON = "Locate Folder";
+	
 	private static final String RETRY_STRING = "Retry";
-	private static final String MANUAL_STRING = "<html>If you have tried the options above, and this program still does not detect MuseScore, click the button below to install the plugin manually.<br>It will take you to a website with instructions on how to install the plugin.</html>";
+	private static final String MANUAL_STRING = "<html>If you have tried the options above, and the installation still failed, click the button below to install the plugin manually.<br>It will take you to a website with instructions on how to install the plugin.</html>";
 	private static final String MANUAL_BUTTON_STRING = "Manual Install";
 	
 	//actual variables
@@ -47,6 +51,8 @@ public class ErrorWindow extends JFrame {
 	private JLabel errorTwo;
 	private JButton retryButton;
 	private JPanel mainPanel;
+	private JLabel manualLocate;
+	private JButton locateButton;
 	private JLabel manual;
 	private JButton manualB;
 	
@@ -110,6 +116,25 @@ public class ErrorWindow extends JFrame {
 			}	
 			
 		});
+		
+		c.gridy++;
+		manualLocate = new JLabel(MANUAL_LOCATE);
+		mainPanel.add(manualLocate);
+		
+		c.gridy++;
+		locateButton = new JButton(LOCATE_BUTTON);
+		mainPanel.add(locateButton);
+		String folder;
+		locateButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				GetFolder.getFolder();
+				
+			}
+		});
+		Main.downloadAndPlace(GetFolder.getFolderPath());
+		
 		
 		c.gridy++;
 		manual = new JLabel(MANUAL_STRING);//,SwingConstants.CENTER);

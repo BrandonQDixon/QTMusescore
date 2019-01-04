@@ -34,15 +34,15 @@ var FileManager = {
 
 /**
  * Class which holds data for MuseScore info
- * @type {{version: number, dirs: {musescore: string, plugins: string}}}
+ * @type {{version: number, dirs: {museScore: string, plugins: string}}}
  */
 var MuseScore = {
     //indicate the version of musescure this is intended for
     version: 2,
     //denote the important directories used by MuseScore (as indicated in its own documentation)
     dirs: {
-        musescore: FileManager.dirs.documents + "/MuseScore" + version,
-        plugins: MuseScore.dirs.musescore + "/Plugins",
+        museScore: function() { return FileManager.dirs.documents + "/MuseScore" + MuseScore.version; },
+        plugins: function() { return this.dirs.museScore + "/Plugins"; },
     },
 };
 

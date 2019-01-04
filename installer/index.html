@@ -1,14 +1,51 @@
 <!DOCTYPE html>
 <head>
-<head>
     <meta charset="UTF-8">
     <title>Quarter Tone Plugin for Musescore</title>
 
     <link rel="text/stylesheet" href="styles.css">
-    <script src="window.js"></script>
+    <script src="stage.js"></script>
     <script src="muse.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let installButtom = document.getElementById('install');
+            installButtom.addEventListener('click',function() {
+                if (checkMuseExists()) {
+                    Stage.setStage("museScoreExists");
+                } else {
+                    Stage.setStage("museScoreMissing");
+                }
+            });
+        });
+
+        /**
+         * Check if musescore installation exists
+         * @returns {*}
+         */
+        function checkMuseExists() {
+            return FileManager.dirExists(MuseScore.dirs.museScore);
+        }
+    </script>
 </head>
 <body>
-    <h1>Quarter Tone Accidentals</h1>
+    <h1>Quarter Tone Accidentals - Plugin</h1>
+
+    <!-- Default loading stage -->
+    <stage id="index" data-default="default">
+        <h2>Welcome</h2>
+        <p>Welcome to the installer for the <i>Quarter Tone Accidentals</i> plugin.  Click the button below to get started.</p>
+        <button id="install">Install</button>
+    </stage>
+
+    <!-- Stage to present if musescore does exist -->
+    <stage id="museScoreExists">
+        <h2>MuseScore Not Found</h2>
+        <p>It appears that <i>MuseScore</i> is not currently installed on your system.</p>
+    </stage>
+
+    <!-- Stage to present if musescore has not been detected on system -->
+    <stage id="museScoreMissing">
+        <p>777</p>
+    </stage>
 </body>
 </html>

@@ -1,0 +1,14 @@
+{
+  "name": "qt_musescore",
+  "version": "1.0.0",
+  "description": "Installation application for Quarter Tone plugins for MuseScore.",
+  "main": "window.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Quarter Tone Saxophone Publishing",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "electron": "^3.0.7"
+  }
+}

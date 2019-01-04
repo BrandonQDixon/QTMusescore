@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <title>Quarter Tone Plugin for Musescore</title>
 
-    <link rel="text/stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css">
     <script src="stage.js"></script>
     <script src="muse.js"></script>
     <script>
@@ -12,6 +12,7 @@
             installButtom.addEventListener('click',function() {
                 if (checkMuseExists()) {
                     Stage.setStage("museScoreExists");
+                    install();
                 } else {
                     Stage.setStage("museScoreMissing");
                 }
@@ -23,29 +24,85 @@
          * @returns {*}
          */
         function checkMuseExists() {
-            return FileManager.dirExists(MuseScore.dirs.museScore);
+            return FileManager.dirExists(MuseScore.dirs.museScore());
+        }
+
+        /**
+         * Download and install the plugin
+         */
+        function install() {
+            FileManager.getUrl(Repository.plugins.accidentals.url,function(contents) {
+                FileManager.writeFile(MuseScore.dirs.plugins()+"/Quarter Tone Accidentals - QTSP.qml",contents,function() {
+                    Stage.setStage("installationComplete");
+                });
+            });
         }
     </script>
 </head>
 <body>
-    <h1>Quarter Tone Accidentals - Plugin</h1>
+    <banner>
+        <h1>Quarter Tone Accidentals - MuseScore Plugin</h1>
+    </banner>
 
-    <!-- Default loading stage -->
-    <stage id="index" data-default="default">
-        <h2>Welcome</h2>
-        <p>Welcome to the installer for the <i>Quarter Tone Accidentals</i> plugin.  Click the button below to get started.</p>
-        <button id="install">Install</button>
-    </stage>
+    <content>
+        <!-- Default loading stage -->
+        <stage id="index" data-default="default" data-align="center">
+            <h2>Welcome</h2>
+            <p>Welcome to the installer for the <i>Quarter Tone Accidentals</i> plugin.  Click the button below to get started.</p>
+            <button id="install">Install Plugin!</button>
+        </stage>
 
-    <!-- Stage to present if musescore does exist -->
-    <stage id="museScoreExists">
-        <h2>MuseScore Not Found</h2>
-        <p>It appears that <i>MuseScore</i> is not currently installed on your system.</p>
-    </stage>
+        <!-- Stage to present if musescore does exist -->
+        <stage id="museScoreExists" data-align="center">
+            <h2>Plugin Installation in Progress...</h2>
+            <p>An installation of <i>MuseScore</i> has been detected on your system.<br/>Currently downloading and installing the plugin...</p>
+        </stage>
 
-    <!-- Stage to present if musescore has not been detected on system -->
-    <stage id="museScoreMissing">
-        <p>777</p>
-    </stage>
+        <!-- Stage to present if musescore has not been detected on system -->
+        <stage id="museScoreMissing">
+            <h2>MuseScore Not Found</h2>
+            <p>It appears that <i>MuseScore</i> is not currently installed on your system.</p>
+        </stage>
+
+        <!-- Stage to present when installation is complete -->
+        <stage id="installationComplete">
+            <twopane>
+                <pane>
+                    <h2>Installation Complete</h2>
+                    <p>The plugin has been successfully installed to your system.<br/><br/>
+                    <h2>Enable the Plugin</h2>
+                    <p>To enable the plugin, you will need to follow the steps below:</p>
+                    <ol>
+                        <li>If <i>MuseScore</i> is currently open, exit the application.</li>
+                        <li>Open <i>MuseScore</i>.</li>
+                        <li>Go to the top menubar, select <i>Plugins</i>, then <i>Plugin Manager</i> in the drop down menu.</li>
+                        <li>Find the entry for <i>Quarter Tone Accidentals</i> and make sure it is checked.<br/><img src="img/selectPlugin.png" style="max-width: 100%;max-height:200px;width:auto;"></li>
+                    </ol>
+                </pane>
+                <pane>
+                    <h2>More Composition Resources</h2>
+                    <p><i>Quarter Tone Composition</i>'s website has apps and resources available for composers:</p>
+                    <ul>
+                        <li>Apps</li>
+                        <ul>
+                            <li><a href="https://quartertonecomposition.com/scaleCreator.php" target="_browser">Scale Creator</a></li>
+                            <li><a href="https://quartertonecomposition.com/transpositionApp.php" target="_browser">Transposition App</a></li>
+                            <li><a href="https://quartertonecomposition.com/earTraining.php" target="_browser">Ear Training App</a></li>
+                            <li><a href="https://quartertonecomposition.com/24ToneRowMatrixGenerator.php" target="_browser">24 Tone Row Matrix Generator</a></li>
+                        </ul>
+                        <li>Books</li>
+                        <ul>
+                            <li><a href="https://quartertonecomposition.com/store.php?item=8" target="_browser">Introduction to Quarter Tone Composition</a></li>
+                            <li><a href="https://quartertonecomposition.com/store.php?item=5" target="_browser">Manuscript Book - 101 Pages</a></li>
+                        </ul>
+                    </ul>
+                </pane>
+            </twopane>
+        </stage>
+
+        <footer>
+
+        </footer>
+    </content>
 </body>
 </html>

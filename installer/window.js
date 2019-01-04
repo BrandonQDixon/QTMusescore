@@ -16,8 +16,8 @@ global.moduleImports = {
 function createWindow () {
     // Create the browser window.
     win = new BrowserWindow({
-        width: 800,
-        height: 600
+        width: 1200,
+        height: 800
     });
     // and load the index.html of the app.
     win.loadFile('index.html');

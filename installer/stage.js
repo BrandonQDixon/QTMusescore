@@ -34,9 +34,12 @@ var Stage = {
         let def = null;
         let allStages = document.getElementsByTagName(Stage._tagName);
         for (let i = 0; i < allStages.length; i++) {
-            if (allStages[i].dataset.default === "default") {
-                def = allStages[i].id;
-                break;
+            let tstage = allStages[i];
+            if (tstage.dataset.default === "default") {
+                def = tstage.id;
+            }
+            if (typeof tstage.dataset.align !== 'undefined') {
+                tstage.style.textAlign = tstage.dataset.align;
             }
         }
 
@@ -52,4 +55,31 @@ document.addEventListener("DOMContentLoaded", function() {
     if (id !== null) {
         Stage.setStage(id);
     }
+
+    //make links open in browser
+    let a = document.getElementsByTagName("a");
+    for (let i=0; i<a.length; i++) {
+        let ael = a[i];
+        if (ael.target === "_browser") {
+            ael.addEventListener('click',function(e) {
+                e.preventDefault();
+                let url = ael.href;
+                require("electron").shell.openExternal(url);
+            });
+        }
+    }
+
+    //adjust content size
+    window.addEventListener('resize',function(e) {
+        let content = document.getElementsByTagName('content')[0];
+        let banner =  document.getElementsByTagName('banner')[0];
+
+        let bannerHeight = banner.getBoundingClientRect().height;
+        let windowHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+
+        let contentHeight = windowHeight - bannerHeight;
+        content.style.height = contentHeight + "px";
+    });
+
+    window.dispatchEvent(new Event('resize'));
 });

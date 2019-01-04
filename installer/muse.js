@@ -20,6 +20,11 @@ var FileManager = {
             return false;
         }
     },
+    /**
+     * Send a Get request to a url and callback with contents
+     * @param url
+     * @param callback
+     */
     getUrl: function(url,callback) {
         let request = new XMLHttpRequest();
         request.open('Get',url);
@@ -29,6 +34,15 @@ var FileManager = {
             callback(contents);
         };
         request.send();
+    },
+    /**
+     * Write a file, then execute callack
+     * @param name
+     * @param contents
+     * @param callback
+     */
+    writeFile: function(name,contents,callback) {
+        fs.writeFile(name,contents,callback);
     }
 };
 
@@ -42,7 +56,7 @@ var MuseScore = {
     //denote the important directories used by MuseScore (as indicated in its own documentation)
     dirs: {
         museScore: function() { return FileManager.dirs.documents + "/MuseScore" + MuseScore.version; },
-        plugins: function() { return this.dirs.museScore + "/Plugins"; },
+        plugins: function() { return MuseScore.dirs.museScore() + "/Plugins"; },
     },
 };
 

@@ -1,6 +1,7 @@
 const moduleImports = require('electron').remote.getGlobal('moduleImports');
 const app = moduleImports.app;
 const fs = moduleImports.fs;
+const shell = moduleImports.shell;
 
 /**
  * This object will handle stage presentation
@@ -9,6 +10,7 @@ const fs = moduleImports.fs;
 var Stage = {
     _currentStage: null,
     _tagName: "stage",
+    _paneTagName: "pane",
     _defaultDisplay: "block",
     /**
      * Set the stage the window should show, and make all other stages hidden
@@ -43,7 +45,33 @@ var Stage = {
             }
         }
 
+
         return def;
+    },
+    /**
+     * Process stages and panes
+     */
+    process: function() {
+        let allStages = document.getElementsByTagName(Stage._tagName);
+        for (let i = 0; i < allStages.length; i++) {
+            let tstage = allStages[i];
+            if (typeof tstage.dataset.align !== 'undefined') {
+                tstage.style.textAlign = tstage.dataset.align;
+            }
+        }
+
+        //process all panes
+        let allPanes = document.getElementsByTagName(Stage._paneTagName);
+        for (let i=0; i<allPanes.length; i++) {
+            let tstage = allPanes[i];
+            if (typeof tstage.dataset.align !== 'undefined') {
+                let tstage = allPanes[i];
+                tstage.style.textAlign = tstage.dataset.align;
+            }
+        }
+    },
+    openLinkExternal: function(url) {
+        shell.openExternal(url);
     }
 };
 
@@ -51,6 +79,7 @@ var Stage = {
  * Set the default stage, if it is specified, upon document load
  */
 document.addEventListener("DOMContentLoaded", function() {
+    Stage.process();
     let id = Stage.getDefaultStageId();
     if (id !== null) {
         Stage.setStage(id);
@@ -64,7 +93,7 @@ document.addEventListener("DOMContentLoaded", function() {
             ael.addEventListener('click',function(e) {
                 e.preventDefault();
                 let url = ael.href;
-                require("electron").shell.openExternal(url);
+                Stage.openLinkExternal(url);
             });
         }
     }
@@ -73,11 +102,13 @@ document.addEventListener("DOMContentLoaded", function() {
     window.addEventListener('resize',function(e) {
         let content = document.getElementsByTagName('content')[0];
         let banner =  document.getElementsByTagName('banner')[0];
+        let footer = document.getElementsByTagName('footer')[0];
 
         let bannerHeight = banner.getBoundingClientRect().height;
         let windowHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+        let footerHeight = footer.getBoundingClientRect().height;
 
-        let contentHeight = windowHeight - bannerHeight;
+        let contentHeight = windowHeight - bannerHeight - footerHeight;
         content.style.height = contentHeight + "px";
     });
 

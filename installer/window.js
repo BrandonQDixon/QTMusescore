@@ -3,6 +3,7 @@ const electron = require('electron');
 const app = electron.app;
 const fs = require("fs");
 const BrowserWindow = electron.BrowserWindow;
+const shell = electron.shell;
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -11,20 +12,23 @@ let win;
 global.moduleImports = {
     app: app,
     fs: fs,
+    shell: shell,
 };
 
 function createWindow () {
     // Create the browser window.
     win = new BrowserWindow({
         width: 1200,
-        height: 800
+        height: 800,
+        resizable: false,
+        icon:  __dirname + "/img/favicon.ico",
     });
     // and load the index.html of the app.
     win.loadFile('index.html');
 
     win.setMenu(null);
 
-    win.webContents.openDevTools();
+    //win.webContents.openDevTools();
 
     // Emitted when the window is closed.
     win.on('closed', () => {

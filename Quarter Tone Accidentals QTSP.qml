@@ -161,7 +161,7 @@ MuseScore {
 			note.tuning = -150;
 		} else if (accidental == Accidental.MIRRORED_FLAT) {
 			note.tuning = -50;
-		} else if (accidental == Accidental.NATURAL) {
+		} else if (accidental == Accidental.NATURAL || accidental == Accidental.NONE) {
 			note.tuning = 0;
 		} else if (accidental == Accidental.SHARP_SLASH) {
 			note.tuning = 50;

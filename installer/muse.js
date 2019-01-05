@@ -40,9 +40,14 @@ var FileManager = {
      * @param name
      * @param contents
      * @param callback
+     * @param errorCallback
      */
-    writeFile: function(name,contents,callback) {
-        fs.writeFile(name,contents,callback);
+    writeFile: function(name,contents,callback,errorCallback) {
+        try {
+            fs.writeFile(name, contents, callback);
+        } catch (e) {
+            errorCallback(e);
+        }
     }
 };
 
@@ -58,6 +63,7 @@ var MuseScore = {
         museScore: function() { return FileManager.dirs.documents + "/MuseScore" + MuseScore.version; },
         plugins: function() { return MuseScore.dirs.museScore() + "/Plugins"; },
     },
+    downloadUrl: "https://musescore.org/en/download",
 };
 
 /**
@@ -67,7 +73,7 @@ var MuseScore = {
 var Repository = {
     plugins: {
         accidentals: {
-            url: "https://raw.githubusercontent.com/BrandonQDixon/QTMusescore/master/Quarter%20Tone%20Accidentals%20Dixon.qml",
+            url: "https://raw.githubusercontent.com/BrandonQDixon/QTMusescore/master/Quarter%20Tone%20Accidentals%20QTSP.qml",
         }
     }
 };

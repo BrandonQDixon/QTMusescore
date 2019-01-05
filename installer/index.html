@@ -8,6 +8,8 @@
     <script src="muse.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById('repLink').href = Repository.plugins.accidentals.url;
+
             let installButtom = document.getElementById('install');
             installButtom.addEventListener('click',function() {
                 if (checkMuseExists()) {
@@ -17,6 +19,37 @@
                     Stage.setStage("museScoreMissing");
                 }
             });
+
+            let downloadButton = document.getElementById('downloadMuseScore');
+            downloadButton.addEventListener('click',function() {
+                Stage.openLinkExternal(MuseScore.downloadUrl);
+                Stage.setStage("museScoreFinishDownloading");
+            });
+
+            let finishInstallingButton = document.getElementById('museScoreFinishInstalling');
+            finishInstallingButton.addEventListener('click',function() {
+                Stage.setStage("manual");
+            });
+
+            let completeManual = document.getElementById('completeManual');
+            completeManual.addEventListener('click',function() {
+                Stage.setStage("installationComplete");
+            });
+
+            let alreadyInstalledButton = document.getElementById('isAlreadyInstalled');
+            alreadyInstalledButton.addEventListener('click',function() {
+                Stage.setStage("manual");
+            });
+
+            //have includes
+            let spans = document.getElementsByTagName('span');
+            let repContent = document.getElementById('resourcesReplace').innerHTML;
+            for (let i=0; i<spans.length; i++) {
+                let tspan = spans[i];
+                if (tspan.classList.contains('resourcesReplace')) {
+                    tspan.innerHTML = repContent;
+                }
+            }
         });
 
         /**
@@ -34,9 +67,12 @@
             FileManager.getUrl(Repository.plugins.accidentals.url,function(contents) {
                 FileManager.writeFile(MuseScore.dirs.plugins()+"/Quarter Tone Accidentals - QTSP.qml",contents,function() {
                     Stage.setStage("installationComplete");
+                },function() {
+                    Stage.setStage("manual");
                 });
             });
         }
+
     </script>
 </head>
 <body>
@@ -59,10 +95,50 @@
         </stage>
 
         <!-- Stage to present if musescore has not been detected on system -->
-        <stage id="museScoreMissing">
+        <stage id="museScoreMissing" data-align="center">
             <h2>MuseScore Not Found</h2>
             <p>It appears that <i>MuseScore</i> is not currently installed on your system.</p>
+            <twopane>
+                <pane>
+                    <button id="downloadMuseScore">Download MuseScore</button>
+                </pane>
+                <pane>
+                    <button id="isAlreadyInstalled">It is Already Installed</button>
+                </pane>
+            </twopane>
         </stage>
+
+        <!-- This stage will be presented if the user clicks 'Download MuseScore' in a previous screen -->
+        <stage id="museScoreFinishDownloading" data-align="center">
+            <h2>Download Link Opened</h2>
+            <p>Your browser is opening the <i>MuseScore download page</i>.  Follow the instructions below:</p>
+            <ol style="text-align:left;display:inline-block;">
+                <li>Download the appropriate version of <i>MuseScore</i>.</li>
+                <li>Follow the installation prompts.</li>
+                <li>Open the program, then close when it has loaded.</li>
+                <li>Click the button below:</li>
+            </ol>
+            <br/>
+            <button id="museScoreFinishInstalling">Install Plugin</button>
+        </stage>
+
+        <!-- If this installer cannot make the installation, give instructions for doing so manually -->
+        <stage id="manual" data-align="center">
+            <h2>Manual Installation</h2>
+            <p>This installer was unable to automatically install the Plugin.  You can manually install the plugin by following the steps below:</p>
+            <ol style="text-align:left;display:inline-block;">
+                <li>If the following directory does not exist: open, then close <i>MuseScore</i>: <i>My Documents/MuseScoreX/Plugins/</i>, where X is the current version number.</li>
+                <li>Download the plugin file below and save it to <i>My Documents/MuseScoreX/Plugins/</i>, where X is the current version number.
+                    <br/>
+                    <a id="repLink" download>Plugin Download</a>
+                </li>
+                <li>Click this button below:</li>
+            </ol>
+            <button id="completeManual">Proceed</button>
+
+        </stage>
+
+
 
         <!-- Stage to present when installation is complete -->
         <stage id="installationComplete">
@@ -80,29 +156,34 @@
                     </ol>
                 </pane>
                 <pane>
-                    <h2>More Composition Resources</h2>
-                    <p><i>Quarter Tone Composition</i>'s website has apps and resources available for composers:</p>
-                    <ul>
-                        <li>Apps</li>
-                        <ul>
-                            <li><a href="https://quartertonecomposition.com/scaleCreator.php" target="_browser">Scale Creator</a></li>
-                            <li><a href="https://quartertonecomposition.com/transpositionApp.php" target="_browser">Transposition App</a></li>
-                            <li><a href="https://quartertonecomposition.com/earTraining.php" target="_browser">Ear Training App</a></li>
-                            <li><a href="https://quartertonecomposition.com/24ToneRowMatrixGenerator.php" target="_browser">24 Tone Row Matrix Generator</a></li>
-                        </ul>
-                        <li>Books</li>
-                        <ul>
-                            <li><a href="https://quartertonecomposition.com/store.php?item=8" target="_browser">Introduction to Quarter Tone Composition</a></li>
-                            <li><a href="https://quartertonecomposition.com/store.php?item=5" target="_browser">Manuscript Book - 101 Pages</a></li>
-                        </ul>
-                    </ul>
+                    <span class="resourcesReplace"></span>
                 </pane>
             </twopane>
         </stage>
-
-        <footer>
-
-        </footer>
     </content>
+
+    <!-- This is a common 'include' which span of class 'resourcesReplace' will have -->
+    <div id="resourcesReplace" style="display:none">
+        <h2>More Composition Resources</h2>
+        <p><i>Quarter Tone Composition</i>'s website has apps and resources available for composers:</p>
+        <ul>
+            <li>Apps</li>
+            <ul>
+                <li><a href="https://quartertonecomposition.com/scaleCreator.php" target="_browser">Scale Creator</a></li>
+                <li><a href="https://quartertonecomposition.com/transpositionApp.php" target="_browser">Transposition App</a></li>
+                <li><a href="https://quartertonecomposition.com/earTraining.php" target="_browser">Ear Training App</a></li>
+                <li><a href="https://quartertonecomposition.com/24ToneRowMatrixGenerator.php" target="_browser">24 Tone Row Matrix Generator</a></li>
+            </ul>
+            <li>Books</li>
+            <ul>
+                <li><a href="https://quartertonecomposition.com/store.php?item=8" target="_browser">Introduction to Quarter Tone Composition</a></li>
+                <li><a href="https://quartertonecomposition.com/store.php?item=5" target="_browser">Manuscript Book - 101 Pages</a></li>
+            </ul>
+        </ul>
+    </div>
+
+    <footer>
+
+    </footer>
 </body>
 </html>

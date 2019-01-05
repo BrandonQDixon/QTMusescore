@@ -10,5 +10,10 @@
   "license": "CC0-1.0",
   "devDependencies": {
     "electron": "^3.0.7"
+  },
+  "build": {
+    "appID": "qt_musescore",
+    "productName": "Quarter Tone Plugin Installer",
+    "icon": "img/favicon.ico"
   }
 }

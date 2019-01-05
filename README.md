@@ -5,7 +5,7 @@ The latest version of this plugin was released 1/04/19.
 
 ---
 
-'QTMusescore' is a MuseScore plugin that will adjust the pitches of all standard quarter tone accidentals.  This will allow MuseScore to play back quarter tone pitches accurately.  For information on what constitutes standard quarter tone accidentals, visit the following website: https://quartertonecomposition.com/musescoreInstructionsAndPlugin.php
+'QTMusescore' is a MuseScore plugin that will adjust the pitches of all standard quarter tone accidentals.  This will allow MuseScore to play back quarter tone pitches accurately.  For information on what constitutes standard quarter tone accidentals, visit the following website: https://quartertonecomposition.com/museScoreInstructionsAndPlugins.php
 
 ---
 

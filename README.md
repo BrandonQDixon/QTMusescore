@@ -1,7 +1,7 @@
 QTMusescore
 =================
 This is a plugin for MuseScore, Version 2.
-The latest version of this plugin was released 4/27/17.
+The latest version of this plugin was released 1/04/19.
 
 ---
 

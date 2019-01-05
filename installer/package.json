@@ -9,7 +9,8 @@
   "author": "Quarter Tone Saxophone Publishing",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^3.0.7"
+    "electron": "^3.0.7",
+    "electron-packager": "^13.0.1"
   },
   "build": {
     "appID": "qt_musescore",

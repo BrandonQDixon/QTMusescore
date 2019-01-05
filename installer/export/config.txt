@@ -1,0 +1,5 @@
+;!@Install@!UTF-8!
+Title="Quarter Tone Accidental Plugin Installer"
+BeginPrompt="Would you like to install the Quarter Tone Accidental Plugin for Musescore?"
+RunProgram="Quarter-Tone-Plugin-Musescore.exe"
+;!@InstallEnd@!

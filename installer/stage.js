@@ -69,6 +69,19 @@ var Stage = {
                 tstage.style.textAlign = tstage.dataset.align;
             }
         }
+
+        //make links open in browser
+        let a = document.getElementsByTagName("a");
+        for (let i=0; i<a.length; i++) {
+            let ael = a[i];
+            if (ael.target === "_browser") {
+                ael.addEventListener('click',function(e) {
+                    e.preventDefault();
+                    let url = ael.href;
+                    Stage.openLinkExternal(url);
+                });
+            }
+        }
     },
     openLinkExternal: function(url) {
         shell.openExternal(url);
@@ -83,19 +96,6 @@ document.addEventListener("DOMContentLoaded", function() {
     let id = Stage.getDefaultStageId();
     if (id !== null) {
         Stage.setStage(id);
-    }
-
-    //make links open in browser
-    let a = document.getElementsByTagName("a");
-    for (let i=0; i<a.length; i++) {
-        let ael = a[i];
-        if (ael.target === "_browser") {
-            ael.addEventListener('click',function(e) {
-                e.preventDefault();
-                let url = ael.href;
-                Stage.openLinkExternal(url);
-            });
-        }
     }
 
     //adjust content size

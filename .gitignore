@@ -1,3 +1,10 @@
+installer/export/*.zip
+installer/export/*.exe
+installer/export/*
+!installer/export/*.txt
+!installer/export/*.bat
+!installer/export/7zS.sfx
+
 .DS_Store
 .idea
 
